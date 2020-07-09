@@ -1,10 +1,10 @@
 function attachEvents() {
-    const anglerField = document.querySelector('.angler');
-    const weightField = document.querySelector('.weight');
-    const speciesField = document.querySelector('.species');
-    const locationField = document.querySelector('.location');
-    const baitField = document.querySelector('.bait');
-    const captureTimeField = document.querySelector('.captureTime');
+    const anglerField = document.querySelectorAll('.angler')[1];
+    const weightField = document.querySelectorAll('.weight')[1];
+    const speciesField = document.querySelectorAll('.species')[1];
+    const locationField = document.querySelectorAll('.location')[1];
+    const baitField = document.querySelectorAll('.bait')[1];
+    const captureTimeField = document.querySelectorAll('.captureTime')[1];
     const catchesDiv = document.querySelector('#catches');
 
     const addButton = document.querySelector('.add');
@@ -25,10 +25,13 @@ function attachEvents() {
         const captureTime = captureTimeField.value;
 
         await fetch(baseUrl + 'catches.json', {
+            headers: {'Content-type': 'application/json'},
             method: "POST",
             body: JSON.stringify({angler, weight, species, location, bait, captureTime})
         })
             .then((response) => console.log(response));
+
+        clearInputs();
     }
 
     async function loadCathes(e) {
@@ -94,22 +97,31 @@ function attachEvents() {
                 };
 
                 async function updateCatch(e) {
-                    const updatedAnglerInput = anglerInput.value;
-                    const updatedWeightInput = weightInput.value;
-                    const updatedSpeciesInput = speciesInput.value;
-                    const updatedLocationInput = locationInput.value;
-                    const updatedBaitInput = baitInput.value;
-                    const updatedCaptureTimeInput = captureTimeInput.value;
+                    const angler = anglerInput.value;
+                    const weight = weightInput.value;
+                    const species = speciesInput.value;
+                    const location = locationInput.value;
+                    const bait = baitInput.value;
+                    const captureTime = captureTimeInput.value;
 
-                    await fetch(`${baseUrl}/catches/${key}.json`, {
+                    await fetch(`${baseUrl}catches/${key}.json`, {
+                        headers: {'Content-type': 'application/json'},
                         method: "PUT",
-                        body: JSON.stringify({updatedAnglerInput, updatedWeightInput, updatedSpeciesInput,
-                                              updatedLocationInput, updatedBaitInput, updatedCaptureTimeInput})});
+                        body: JSON.stringify({angler, weight, species,
+                            location, bait, captureTime})});
                 };
             }
         }
     }
 
+    function clearInputs() {
+        anglerField.value = '';;
+        weightField.value = '';
+        speciesField.value = '';
+        locationField.value = '';
+        baitField.value = '';
+        captureTimeField.value = '';
+    }
     function el(type, content, attributes) {
         const result = document.createElement(type);
     
