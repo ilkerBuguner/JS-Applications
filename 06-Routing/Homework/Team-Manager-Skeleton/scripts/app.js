@@ -1,6 +1,6 @@
 import home from './controllers/home.js';
 import about from './controllers/about.js';
-import login, { loginPost } from './controllers/login.js';
+import login, { loginPost, logout } from './controllers/login.js';
 import register, { registerPost } from './controllers/register.js';
 import catalog from './controllers/catalog.js';
 import details from './controllers/details.js';
@@ -24,6 +24,8 @@ $(() => {
         this.get('#/register', register);
 
         this.get('#/login', login);
+
+        this.get('#/logout', logout)
 
         this.get('#/catalog', catalog);
 

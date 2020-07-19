@@ -28,6 +28,10 @@ export async function createPost() {
             Object.assign(err, result);
             throw err;
         }
+
+        this.app.userData.hasTeam = true;
+        this.app.userData.teamId = result.objectId;
+
         this.redirect(`#/catalog/${result.objectId}`);
     } catch(err) {
         console.error(err);
