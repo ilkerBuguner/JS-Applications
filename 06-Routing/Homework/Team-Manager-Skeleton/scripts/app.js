@@ -5,7 +5,7 @@ import register, { registerPost } from './controllers/register.js';
 import catalog from './controllers/catalog.js';
 import details from './controllers/details.js';
 import create, { createPost } from './controllers/create.js';
-import edit from './controllers/edit.js';
+import edit, {editPost } from './controllers/edit.js';
 
 $(() => {
     const app = Sammy('#main', function() {
@@ -34,6 +34,8 @@ $(() => {
         this.get('#/create', create);
 
         this.get('#/edit/:id', edit);
+
+        this.post('#/edit/:id', (ctx) => {editPost.call(ctx); });
 
         this.post('#/register', (ctx) => { registerPost.call(ctx); })
         this.post('#/login', (ctx) => { loginPost.call(ctx); })

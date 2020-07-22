@@ -9,6 +9,7 @@ export default async function () {
     }
 
     const data = await getTeamById(this.params.id);
+    this.app.userData.teamId = this.params.id;
     Object.assign(data, this.app.userData);
 
     if(data.ownerId === this.app.userData.userId) {

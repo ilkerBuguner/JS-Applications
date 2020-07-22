@@ -104,6 +104,30 @@ export async function createTeam(team) {
     return result;
 }
 
+export async function editTeam(newTeam, id) {
+    const token = localStorage.getItem('userToken');
+    if(!token) {
+        throw new Error('User is not logged in!');
+    }
+    
+    const result = await (await fetch(host(endpoints.TEAMS + '/' + id), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(newTeam)
+    })).json();
+
+    if(result.hasOwnProperty('errorData')) {
+        const err = Error();
+        Object.assign(err, result);
+        throw err;
+    }
+
+    return result;
+}
+
 export async function getTeamById(id) {
     return (await fetch(host(endpoints.TEAMS + '/' + id))).json();
 }
