@@ -13,6 +13,6 @@ const api = new API(
     endRequest
 )
 
-export const login = api.login.bind(api);
-export const register = api.register.bind(api);
-export const logout = api.logout.bind(api);
+export const apiLogin = api.login.bind(api);
+export const apiRegister = api.register.bind(api);
+export const apiLogout = api.logout.bind(api);

@@ -1,6 +1,7 @@
 import home from './controllers/home.js';
-import register from './controllers/register.js';
-import login from './controllers/login.js';
+import register, { registerPost } from './controllers/register.js';
+import login, { loginPost } from './controllers/login.js';
+import logout from './controllers/logout.js';
 
 window.addEventListener('load', () => {
     const app = Sammy('#container', function() {
@@ -17,8 +18,11 @@ window.addEventListener('load', () => {
         this.get('#/home', home);
 
         this.get('#/register', register);
+        this.post('#/register', ctx => { registerPost.call(ctx); });
 
         this.get('#/login', login);
+        this.post('#/login', ctx => { loginPost.call(ctx);} );
+        this.get('#/logout', logout)
     });
 
     app.run();

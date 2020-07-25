@@ -29,7 +29,7 @@ export default class API {
         const options = {headers: headers || {} };
 
         if(token !== null) {
-            Object.assign(option.headers, {'user-token': token});
+            Object.assign(options.headers, {'user-token': token});
         }
 
         return options;
@@ -89,7 +89,7 @@ export default class API {
     }
 
     async login(username, password) {
-        const result = this.post(this.endpoints.LOGIN, {
+        const result = await this.post(this.endpoints.LOGIN, {
             login: username,
             password
         });
@@ -102,7 +102,10 @@ export default class API {
     }
 
     async logout() {
-        const result = await this.get(this.endpoints.LOGOUT);
+        this.beginRequest();
+        const result = await fetch(this.host(this.endpoints.LOGOUT), this.getOptions());
+        this.endRequest();
+
         localStorage.removeItem('userToken');
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
