@@ -12,7 +12,6 @@ export default async function logout() {
 
         this.app.userData.email = undefined;
         this.app.userData.userId = undefined;
-        this.app.userData.loggedIn = false;
         showInfo('Successfully logged out');
         this.redirect('#/home');
     } catch(err) {

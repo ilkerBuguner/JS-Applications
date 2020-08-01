@@ -1,4 +1,4 @@
-import {beginRequest, endRequest, showError} from './notification.js';
+import { beginRequest, endRequest, showError } from './notification.js';
 import API from './api.js';
 
 const endpoints = {
@@ -16,3 +16,44 @@ const api = new API(
 export const apiLogin = api.login.bind(api);
 export const apiRegister = api.register.bind(api);
 export const apiLogout = api.logout.bind(api);
+
+export async function getPostsByOwner() {
+    beginRequest();
+
+    const ownerId = localStorage.getItem('userId');
+
+    const result = api.get(endpoints.POSTS + `?where=ownerId%3D%27${ownerId}%27`);
+
+    endRequest();
+
+    return result;
+}
+
+export async function getPostById(objectId) {
+    beginRequest();
+    const result = await api.get(endpoints.POST_BY_ID + objectId);
+    endRequest();
+    return result;
+}
+
+export async function createPost(post) {
+    beginRequest();
+    const result = await api.post(endpoints.POSTS, post)
+    endRequest();
+    return result;
+}
+
+export async function editThatPost(objectId, movie) {
+    beginRequest();
+    const result = await api.put(endpoints.POST_BY_ID + objectId, movie)
+    endRequest();
+    return result;
+}
+
+
+export async function deleteThatPost(objectId) {
+    beginRequest();
+    const result = await api.delete(endpoints.POST_BY_ID + objectId)
+    endRequest();
+    return result;
+}

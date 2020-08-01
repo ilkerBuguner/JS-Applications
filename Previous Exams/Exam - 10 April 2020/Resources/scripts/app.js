@@ -2,6 +2,7 @@ import home from './controllers/home.js';
 import login, { loginPost } from './controllers/login.js';
 import register, { registerPost } from './controllers/register.js'
 import logout from './controllers/logout.js';
+import { details, create, edit, deletePost, editPost} from './controllers/posts.js';
 
 window.addEventListener('load', () => {
     const app = Sammy('#root', function() {
@@ -9,8 +10,7 @@ window.addEventListener('load', () => {
 
         this.userData = {
             email: localStorage.getItem('email') || '',
-            userId: localStorage.getItem('userId') || '',
-            loggedIn: false
+            userId: localStorage.getItem('userId') || ''
         };
 
         this.get('/', home);
@@ -24,20 +24,14 @@ window.addEventListener('load', () => {
         this.post('#/login', ctx => { loginPost.call(ctx); });
         this.get('#/logout', logout)
 
-        //this.get('#/cinema', cinema);
-        //this.get('#/my_movies', myMovies);
-        //this.get('#/details/:objectId', details);
+        this.post('#/create', ctx => { create.call(ctx); });
 
-        //this.get('#/create', create)
-        //this.post('#/create', ctx => { createPost.call(ctx); });
+        this.get('#/details/:objectId', details);
 
-        //this.get('#/edit/:objectId', edit);
-        //this.post('#/edit/:objectId', ctx => { editPost.call(ctx); });
+        this.get('#/edit/:objectId', edit);
+        this.post('#/edit/:objectId', ctx => { editPost.call(ctx); });
 
-        //this.get('#/delete/:objectId', deleteGet);
-        //this.post('#/delete/:objectId', ctx => {deletePost.call(ctx); });
-
-        //this.get('#/buy/:objectId', buyTicketGet);
+        this.get('#/delete/:objectId', deletePost);
     });
 
     app.run();
