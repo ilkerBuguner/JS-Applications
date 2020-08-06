@@ -1,4 +1,4 @@
-import {apiRegister} from '../data.js';
+import {apiRegister, apiLogin} from '../data.js';
 import { showInfo, showError } from '../notification.js';
 
 export default async function register() {
@@ -23,15 +23,25 @@ export async function registerPost() {
             throw new Error('Username must be atleast 3 characters');
         }
 
-        const result = await apiRegister(this.params.username, this.params.password);
+        let result = await apiRegister(this.params.username, this.params.password);
         if(result.hasOwnProperty('errorData')) {
             const error = new Error();
             Object.assign(error, result);
             throw error;
         }
 
-        showInfo('User registration successful!');
-        this.redirect('#/login');
+        result = await apiLogin(this.params.username, this.params.password);
+        if(result.hasOwnProperty('errorData')) {
+            const error = new Error();
+            Object.assign(error, result);
+            throw error;
+        }
+
+        this.app.userData.username = result.username;
+        this.app.userData.userId = result.objectId;
+
+        showInfo(`User registration successful!`);
+        this.redirect('#/home');
     } catch(err) {
         console.log(err);
         showError(err.message);
