@@ -4,6 +4,12 @@
 
 /* Links */
 
+#notifications {
+  position: fixed;
+  top: 48px;
+  right: 5px;
+}
+
 a, a:focus, a:hover {
   color: #fff;
 }
