@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^7.17.1",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "jquery": "^3.5.1",
     "lite-server": "^2.5.4",
     "sammy": "^0.7.6"
